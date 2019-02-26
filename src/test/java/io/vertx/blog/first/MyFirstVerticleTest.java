@@ -1,4 +1,4 @@
-package io.vertx.blog.first;
+/* package io.vertx.blog.first;
 
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Vertx;
@@ -79,4 +79,4 @@ public class MyFirstVerticleTest {
           });
         }).write(json).end();
   }
-}
+} */

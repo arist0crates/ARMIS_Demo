@@ -1,5 +1,14 @@
 # ARMIS_Demo
 
+
+# Next steps:
+
+ 1. Connect to ARMIS' demo SQL database with JDBC
+ 
+ 2. Decide between simple HTML+CSS on existing project, OR creating Angular frontend as a separate component
+ 
+ 3. 
+
 #Basic stuff (e.g. simple server, how to package & run)
 https://vertx.io/blog/my-first-vert-x-3-application/
 
@@ -22,3 +31,7 @@ https://vertx.io/docs/guide-for-java-devs/#_a_minimally_viable_wiki_written_with
 
 #Connect to SQL Database
 https://vertx.io/docs/vertx-sql-common/java/
+
+
+# Microsoft SQL Server JDBC Driver
+https://github.com/Microsoft/mssql-jdbc
