@@ -17,16 +17,6 @@ public class Fatura {
     private String fornecedor;
     
     private String estado;
-
-//    public Fatura(int id, String clienteNome, String dataFatura, String dataVencimento, double valor, String fornecedor, String estado) {
-//        this.id = id;
-//        this.clienteNome = clienteNome;
-//        this.dataFatura = dataFatura;
-//        this.dataVencimento = dataVencimento;
-//        this.valor = valor;
-//        this.fornecedor = fornecedor;
-//        this.estado = estado;
-//    }
     
     public Fatura(JsonObject json){
         this.id = json.getInteger("FaturaID");
@@ -37,32 +27,4 @@ public class Fatura {
         this.fornecedor = json.getString("DescritivoFornecedor");
         this.estado = json.getString("DescritivoEstadoFatura");
     }
-    
-    public int getId() {
-        return id;
-    }
-
-    public String getClienteNome() {
-        return clienteNome;
-    }
-
-    public String getDataFatura() {
-        return dataFatura;
-    }
-
-    public String getDataVencimento() {
-        return dataVencimento;
-    }
-
-    public double getValor() {
-        return valor;
-    }
-
-    public String getFornecedor() {
-        return fornecedor;
-    }
-
-    public String getEstado() {
-        return estado;
-    }  
 }

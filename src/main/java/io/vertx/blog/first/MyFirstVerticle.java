@@ -82,7 +82,7 @@ public class MyFirstVerticle extends AbstractVerticle {
     // router.delete("/api/whiskies/:id").handler(this::deleteOne);
 
     FaturaRoute faturaRoute = new FaturaRoute(jdbc);
-    router.get("/api/faturas").handler(faturaRoute::getAllFaturas);
+    //router.get("/api/faturas").handler(faturaRoute::getAllFaturas);
     router.get("/api/faturas/:id").handler(faturaRoute::getOneFaturaByID);
 
     // Create the HTTP server and pass the "accept" method to the request handler.
