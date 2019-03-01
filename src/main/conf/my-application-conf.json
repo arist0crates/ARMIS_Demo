@@ -1,5 +1,5 @@
 {
     "http.port" : 8080,
-    "url": "jdbc:sqlserver://DRIVE:1443;databaseName=Demo;trusted_connection=true",
+    "url": "jdbc:sqlserver://DRIVE;databaseName=Demo;integratedSecurity=true",
     "driver_class": "com.microsoft.sqlserver.jdbc.SQLServerDriver"
 }

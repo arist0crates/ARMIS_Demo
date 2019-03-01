@@ -43,7 +43,7 @@ public class MyFirstVerticle extends AbstractVerticle {
   public void start(Future<Void> fut) {
 
     JsonObject jdbcConfig = new JsonObject()
-      .put("url", "jdbc:sqlserver://DRIVE:1443;databaseName=Demo;trusted_connection=true")
+      .put("url", "jdbc:sqlserver://DRIVE;databaseName=Demo;integratedSecurity=true")
       .put("driver_class", "com.microsoft.sqlserver.jdbc.SQLServerDriver");
 
     // Create a JDBC client

@@ -24,15 +24,15 @@ import java.util.List;
  */
 public class FaturaRepo {
 
-    public void findOneFatura(int id, SQLConnection connection, Handler<AsyncResult<Collection<Fatura>>> resultHandler) {
-        Collection<Fatura> result = null;
+    public void findOneFatura(int id, SQLConnection connection, Handler<AsyncResult<Fatura>> resultHandler) {
+        Fatura result = null;
 
         connection.queryWithParams("SELECT * FROM Fatura WHERE id=?", new JsonArray().add(id), ar -> {
             if (ar.failed()) {
                 resultHandler.handle(Future.failedFuture("Nao existem Faturas"));
             } else {
                 if (ar.result().getNumRows() >= 1) {
-                    resultHandler.handle(Future.succeededFuture(buildFaturas(ar.result().getRows())));
+                    resultHandler.handle(Future.succeededFuture(buildFatura(ar.result().getRows().get(0))));
                 } else {
                     resultHandler.handle(Future.failedFuture("Nao existem Faturas"));
                 }
