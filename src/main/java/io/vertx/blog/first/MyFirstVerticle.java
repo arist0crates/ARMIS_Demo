@@ -11,6 +11,7 @@ import io.vertx.core.json.JsonObject;
 import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.web.Router;
+import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.StaticHandler;
 
 
@@ -82,7 +83,8 @@ public class MyFirstVerticle extends AbstractVerticle {
     // router.delete("/api/whiskies/:id").handler(this::deleteOne);
 
     FaturaRoute faturaRoute = new FaturaRoute(jdbc);
-    //router.get("/api/faturas").handler(faturaRoute::getAllFaturas);
+    router.route("/api/faturas*").handler(BodyHandler.create());
+    router.get("/api/faturas").handler(faturaRoute::getAllFaturas);
     router.get("/api/faturas/:id").handler(faturaRoute::getOneFaturaByID);
 
     // Create the HTTP server and pass the "accept" method to the request handler.

@@ -27,4 +27,53 @@ public class Fatura {
         this.fornecedor = json.getString("DescritivoFornecedor");
         this.estado = json.getString("DescritivoEstadoFatura");
     }
+
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
+    /**
+     * @return the clienteNome
+     */
+    public String getClienteNome() {
+        return clienteNome;
+    }
+
+    /**
+     * @return the dataFatura
+     */
+    public String getDataFatura() {
+        return dataFatura;
+    }
+
+    /**
+     * @return the dataVencimento
+     */
+    public String getDataVencimento() {
+        return dataVencimento;
+    }
+
+    /**
+     * @return the valor
+     */
+    public double getValor() {
+        return valor;
+    }
+
+    /**
+     * @return the fornecedor
+     */
+    public String getFornecedor() {
+        return fornecedor;
+    }
+
+    /**
+     * @return the estado
+     */
+    public String getEstado() {
+        return estado;
+    }
 }
