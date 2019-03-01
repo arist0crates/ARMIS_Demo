@@ -2,7 +2,7 @@ package io.vertx.blog.first.model;
 
 import io.vertx.core.json.JsonObject;
 
-public class Fatura {
+public class FaturaDTO {
 
     private int id;
     
@@ -14,9 +14,9 @@ public class Fatura {
 
     private double valor;
 
-    private String fornecedor;
+    private int fornecedor;
     
-    private String estado;
+    private int estado;
 
 //    public Fatura(int id, String clienteNome, String dataFatura, String dataVencimento, double valor, String fornecedor, String estado) {
 //        this.id = id;
@@ -28,14 +28,14 @@ public class Fatura {
 //        this.estado = estado;
 //    }
     
-    public Fatura(JsonObject json){
+    public FaturaDTO(JsonObject json){
         this.id = json.getInteger("FaturaID");
         this.clienteNome = json.getString("InsertUser");
         this.dataFatura = json.getString("DataFatura");
         this.dataVencimento = json.getString("DataVencimento");
         this.valor = json.getDouble("Valor");
-        this.fornecedor = json.getString("DescritivoFornecedor");
-        this.estado = json.getString("DescritivoEstadoFatura");
+        this.fornecedor = json.getInteger("FornecedorID");
+        this.estado = json.getInteger("EstadoFaturaID");
     }
     
     public int getId() {
@@ -58,11 +58,11 @@ public class Fatura {
         return valor;
     }
 
-    public String getFornecedor() {
+    public int getFornecedor() {
         return fornecedor;
     }
 
-    public String getEstado() {
+    public int getEstado() {
         return estado;
     }  
 }

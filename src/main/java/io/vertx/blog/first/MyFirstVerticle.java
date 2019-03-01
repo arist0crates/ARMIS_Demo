@@ -1,23 +1,16 @@
 package io.vertx.blog.first;
 
-import com.mchange.net.SocketUtils;
-
-import io.vertx.blog.first.persistence.FaturaRepo;
+import io.vertx.blog.first.routes.FaturaRoute;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.AsyncResult;
 import io.vertx.core.Future;
 import io.vertx.core.Handler;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.http.HttpServerResponse;
-import io.vertx.core.json.Json;
-import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.jdbc.JDBCClient;
 import io.vertx.ext.sql.SQLConnection;
-import io.vertx.ext.sql.UpdateResult;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.RoutingContext;
-import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.StaticHandler;
 
 
@@ -88,7 +81,9 @@ public class MyFirstVerticle extends AbstractVerticle {
     // router.put("/api/whiskies/:id").handler(this::updateOne);
     // router.delete("/api/whiskies/:id").handler(this::deleteOne);
 
-    router.get("/api/faturas").handler(this::getAllFaturas);
+    FaturaRoute faturaRoute = new FaturaRoute(jdbc);
+    router.get("/api/faturas").handler(faturaRoute::getAllFaturas);
+    router.get("/api/faturas/:id").handler(faturaRoute::getOneFaturaByID);
 
     // Create the HTTP server and pass the "accept" method to the request handler.
     vertx
@@ -131,30 +126,6 @@ public class MyFirstVerticle extends AbstractVerticle {
   //         connection.close();
   //   });
 
-  // }
-
-  // private void getOne(RoutingContext routingContext) {
-  //   final String id = routingContext.request().getParam("id");
-  //   if (id == null) {
-  //     routingContext.response().setStatusCode(400).end();
-  //   } else {
-  //     jdbc.getConnection(ar -> {
-  //       // Read the request's content and create an instance of Whisky.
-  //       SQLConnection connection = ar.result();
-  //       select(id, connection, result -> {
-  //         if (result.succeeded()) {
-  //           routingContext.response()
-  //               .setStatusCode(200)
-  //               .putHeader("content-type", "application/json; charset=utf-8")
-  //               .end(Json.encodePrettily(result.result()));
-  //         } else {
-  //           routingContext.response()
-  //               .setStatusCode(404).end();
-  //         }
-  //         connection.close();
-  //       });
-  //     });
-  //   }
   // }
 
   // private void updateOne(RoutingContext routingContext) {
@@ -206,13 +177,6 @@ public class MyFirstVerticle extends AbstractVerticle {
   //     });
   //   });
   // }
-
-  private void getAllFaturas(RoutingContext routingContext) {
-    jdbc.getConnection(ar -> {
-      SQLConnection connection = ar.result();
-      FaturaRepo.findManyFaturas(connection, routingContext);
-    });
-  }
   
   // private void createSomeData(AsyncResult<SQLConnection> result, Handler<AsyncResult<Void>> next, Future<Void> fut) {
   //   if (result.failed()) {
