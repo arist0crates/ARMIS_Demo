@@ -1,1 +1,1 @@
-web: java -jar -Dserver.port=$PORT target/armis-demo-1.0-SNAPSHOT-fat.jar
+web: java $JAVA_OPTS -Dhttp.port=$PORT -jar armisdemo/target/armis-demo-1.0-*-fat.jar
