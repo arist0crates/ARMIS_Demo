@@ -82,4 +82,27 @@ public class FaturaRoute {
             });
         });
     }
+
+    public void getAllFaturasPendentesByInsertUser(RoutingContext routingContext) {
+        final String insertUser = routingContext.request().getParam("insertUser");
+        if (insertUser == null) {
+            routingContext.response().setStatusCode(400).end();
+        } else {
+            jdbc.getConnection(ar -> {
+                SQLConnection connection = ar.result();
+                FaturaRepo.findFaturasPendentesByInsertUser(insertUser, connection, result -> {
+                    if (result.succeeded()) {
+                        routingContext.response()
+                            .setStatusCode(200)
+                            .putHeader("content-type", "application/json; charset=utf-8")
+                            .end(Json.encodePrettily(result.result()));
+                    } else {
+                        routingContext.response()
+                            .setStatusCode(404).end();
+                    }
+                    connection.close();
+                });
+            });
+        }        
+    }
 }

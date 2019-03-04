@@ -73,6 +73,23 @@ public class FaturaRepo {
         });
     }
 
+    public static void findFaturasPendentesByInsertUser(String insertUser, SQLConnection connection, Handler<AsyncResult<Collection<Fatura>>> resultHandler) {
+        String query = " SELECT * FROM Fatura, EstadoFatura, Fornecedor WHERE Fatura.InsertUser=? AND EstadoFatura.DescritivoEstadoFatura='Por Aprovar' AND EstadoFatura.EstadoFaturaID = Fatura.EstadoFaturaID AND Fatura.FornecedorID = Fornecedor.FornecedorID";
+
+        connection.queryWithParams(query, new JsonArray().add(insertUser), ar -> {
+            if (ar.failed()) {
+                resultHandler.handle(Future.failedFuture("Nao existem Faturas"));
+            } else {
+                if (ar.result().getNumRows() >= 1) {
+                    Collection<Fatura> faturas = buildFaturas(ar.result().getRows());
+                    resultHandler.handle(Future.succeededFuture(faturas));
+                } else {
+                    resultHandler.handle(Future.failedFuture("Nao existem Faturas para o User " + insertUser));
+                }
+            }
+        });
+    }
+
     private static Fatura buildFatura(JsonObject result) {
         return new Fatura(result);
     }

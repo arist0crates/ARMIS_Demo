@@ -14,7 +14,7 @@ import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.StaticHandler;
 
-
+import io.Config;
 /**
  * This is a verticle. A verticle is a _Vert.x component_. This verticle is implemented in Java, but you can
  * implement them in JavaScript, Groovy or even Ruby.
@@ -37,8 +37,8 @@ public class MyFirstVerticle extends AbstractVerticle {
   public void start(Future<Void> fut) {
 
     JsonObject jdbcConfig = new JsonObject()
-      .put("url", "jdbc:sqlserver://DRIVE;databaseName=Demo;integratedSecurity=true")
-      .put("driver_class", "com.microsoft.sqlserver.jdbc.SQLServerDriver");
+      .put("url", Config.databaseConnectionString)
+      .put("driver_class", Config.databaseDriverClass);
 
     // Create a JDBC client
     // jdbc = JDBCClient.createShared(vertx, config(), "My-Whisky-Collection");
@@ -85,7 +85,8 @@ public class MyFirstVerticle extends AbstractVerticle {
     FaturaRoute faturaRoute = new FaturaRoute(jdbc);
     router.route("/api/faturas*").handler(BodyHandler.create());
     router.get("/api/faturas").handler(faturaRoute::getAllFaturas);
-    router.get("/api/faturas/:id").handler(faturaRoute::getOneFaturaByID);
+    router.get(Config.routeGetOneFaturaByID).handler(faturaRoute::getOneFaturaByID);
+    router.get(Config.routeGetAllFaturasPendentesByInsertUser).handler(faturaRoute::getAllFaturasPendentesByInsertUser);
 
     // Create the HTTP server and pass the "accept" method to the request handler.
     vertx
@@ -94,7 +95,7 @@ public class MyFirstVerticle extends AbstractVerticle {
         .listen(
             // Retrieve the port from the configuration,
             // default to 8080.
-            config().getInteger("http.port", 8080),
+            config().getInteger("http.port", Config.httpPort),
             next::handle
         );
   }
