@@ -97,7 +97,7 @@ public class MyFirstVerticle extends AbstractVerticle {
     );
 
     router.route("/api/faturas*").handler(BodyHandler.create());
-    router.get("/api/faturas").handler(faturaRoute::getAllFaturas);
+    router.get(Config.routeGetAllFaturasByInsertUser).handler(faturaRoute::getAllFaturasByInsertUser);
     router.get(Config.routeGetOneFaturaByID).handler(faturaRoute::getOneFaturaByID);
     router.get(Config.routeGetAllFaturasPendentesByInsertUser).handler(faturaRoute::getAllFaturasPendentesByInsertUser);
 

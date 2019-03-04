@@ -8,5 +8,6 @@ public class Config{
 
     // ROUTES
     public static final String routeGetOneFaturaByID = "/api/faturas/:id";
+    public static final String routeGetAllFaturasByInsertUser = "/api/faturas/:insertuser";
     public static final String routeGetAllFaturasPendentesByInsertUser = "/api/faturas/:insertuser/pendentes";
 }
