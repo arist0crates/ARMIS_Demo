@@ -13,6 +13,7 @@ import io.vertx.ext.sql.SQLConnection;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.StaticHandler;
+import io.vertx.ext.web.handler.CorsHandler;
 
 import io.Config;
 /**
@@ -83,6 +84,18 @@ public class MyFirstVerticle extends AbstractVerticle {
     // router.delete("/api/whiskies/:id").handler(this::deleteOne);
 
     FaturaRoute faturaRoute = new FaturaRoute(jdbc);
+    
+    router.route().handler(CorsHandler.create("*")
+      .allowedMethod(io.vertx.core.http.HttpMethod.GET)
+      .allowedMethod(io.vertx.core.http.HttpMethod.POST)
+      .allowedMethod(io.vertx.core.http.HttpMethod.OPTIONS)
+      .allowCredentials(true)
+      .allowedHeader("Access-Control-Allow-Method")
+      .allowedHeader("Access-Control-Allow-Origin")
+      .allowedHeader("Access-Control-Allow-Credentials")
+      .allowedHeader("Content-Type")
+    );
+
     router.route("/api/faturas*").handler(BodyHandler.create());
     router.get("/api/faturas").handler(faturaRoute::getAllFaturas);
     router.get(Config.routeGetOneFaturaByID).handler(faturaRoute::getOneFaturaByID);
