@@ -58,7 +58,7 @@ public class FaturaRepo {
     // }
 
     public static void findFaturasByInsertUser(String insertUser, SQLConnection connection, Handler<AsyncResult<Collection<Fatura>>> resultHandler) {
-        String query = " SELECT * FROM Fatura, EstadoFatura, Fornecedor WHERE Fatura.InsertUser=? AND EstadoFatura.EstadoFaturaID = Fatura.EstadoFaturaID AND Fatura.FornecedorID = Fornecedor.FornecedorID";
+        String query = " SELECT TOP 1000 * FROM Fatura, EstadoFatura, Fornecedor WHERE Fatura.InsertUser=? AND EstadoFatura.EstadoFaturaID = Fatura.EstadoFaturaID AND Fatura.FornecedorID = Fornecedor.FornecedorID ORDER BY FaturaID DESC";
 
         connection.queryWithParams(query, new JsonArray().add(insertUser), ar -> {
             if (ar.failed()) {
@@ -77,7 +77,7 @@ public class FaturaRepo {
     }
 
     public static void findFaturasPendentesByInsertUser(String insertUser, SQLConnection connection, Handler<AsyncResult<Collection<Fatura>>> resultHandler) {
-        String query = " SELECT * FROM Fatura, EstadoFatura, Fornecedor WHERE Fatura.InsertUser=? AND EstadoFatura.DescritivoEstadoFatura='Por Aprovar' AND EstadoFatura.EstadoFaturaID = Fatura.EstadoFaturaID AND Fatura.FornecedorID = Fornecedor.FornecedorID";
+        String query = " SELECT TOP 1000 * FROM Fatura, EstadoFatura, Fornecedor WHERE Fatura.InsertUser=? AND EstadoFatura.DescritivoEstadoFatura='Por Aprovar' AND EstadoFatura.EstadoFaturaID = Fatura.EstadoFaturaID AND Fatura.FornecedorID = Fornecedor.FornecedorID ORDER BY FaturaID DESC";
 
         connection.queryWithParams(query, new JsonArray().add(insertUser), ar -> {
             if (ar.failed()) {
